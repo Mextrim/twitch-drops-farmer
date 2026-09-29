@@ -1,6 +1,10 @@
 # Сборка — генерируется заново
 dist/
 
+# Локальные архивы
+*.7z
+*.zip
+
 # Node
 node_modules/
 npm-debug.log*

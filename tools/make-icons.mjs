@@ -57,8 +57,13 @@ function encodePng(size, rgb) {
   ]);
 }
 
-/** Фиолетовый квадрат со скруглением и белой «иконкой дропа» (ромб + ножка). */
-function drawIcon(size) {
+/**
+ * Рисует иконку в SS× большем разрешении и усредняет блоки обратно —
+ * так края получаются сглаженными без внешних библиотек.
+ */
+const SUPERSAMPLE = 4;
+
+function drawIconRaw(size) {
   const px = Buffer.alloc(size * size * 3);
   const radius = size * 0.22;
   const put = (x, y, r, g, b) => {
@@ -71,16 +76,14 @@ function drawIcon(size) {
 
   const cx = size / 2;
   const cy = size / 2;
-  const r = size / 2 - size * 0.06;
 
   for (let y = 0; y < size; y++) {
     for (let x = 0; x < size; x++) {
-      // скруглённый квадрат через расстояние до угла
+      // скруглённый квадрат через расстояние до ближайшего угла
       const dx = Math.max(Math.abs(x + 0.5 - cx) - (size / 2 - radius), 0);
       const dy = Math.max(Math.abs(y + 0.5 - cy) - (size / 2 - radius), 0);
-      const outside = Math.hypot(dx, dy) > radius;
-      if (outside) {
-        put(x, y, 14, 14, 16); // фон расширения
+      if (Math.hypot(dx, dy) > radius) {
+        put(x, y, 11, 11, 15); // фон, на котором живёт плитка
         continue;
       }
       // вертикальный градиент #9147ff -> #5c16c5
@@ -95,25 +98,45 @@ function drawIcon(size) {
     }
   }
 
-  // Ромб (капля) в верхней части + прямоугольная «ножка» снизу.
-  const top = size * 0.28;
-  const half = size * 0.17;
-  const halfH = size * 0.2;
-  for (let y = Math.floor(top - halfH); y <= Math.ceil(top + halfH); y++) {
-    const span = (half * (1 - Math.abs((y - top) / halfH))) * 1.0;
-    for (let x = Math.floor(cx - span); x <= Math.ceil(cx + span); x++) {
-      put(x, y, 255, 255, 255);
-    }
-  }
-  const neckW = size * 0.1;
-  const neckTop = top + halfH * 0.55;
-  const neckBottom = size * 0.7;
-  for (let y = Math.floor(neckTop); y <= Math.ceil(neckBottom); y++) {
-    for (let x = Math.floor(cx - neckW / 2); x <= Math.ceil(cx + neckW / 2); x++) {
+  // «play»-стрелка: вертикальное ребро слева, остриё справа по центру.
+  const triH = size * 0.36;
+  const triW = triH * 1.15;
+  const left = cx - triW / 4;
+  const top = cy - triH / 2;
+  for (let y = Math.floor(top); y <= Math.ceil(top + triH); y++) {
+    const t = (y - top) / triH;
+    const half = (triW / 2) * (1 - Math.abs(t * 2 - 1));
+    for (let x = Math.floor(left); x <= Math.ceil(left + half); x++) {
       put(x, y, 255, 255, 255);
     }
   }
   return px;
+}
+
+function drawIcon(size) {
+  const big = drawIconRaw(size * SUPERSAMPLE);
+  const out = Buffer.alloc(size * size * 3);
+  const n = SUPERSAMPLE * SUPERSAMPLE;
+  for (let y = 0; y < size; y++) {
+    for (let x = 0; x < size; x++) {
+      let r = 0;
+      let g = 0;
+      let b = 0;
+      for (let sy = 0; sy < SUPERSAMPLE; sy++) {
+        for (let sx = 0; sx < SUPERSAMPLE; sx++) {
+          const i = ((y * SUPERSAMPLE + sy) * size * SUPERSAMPLE + (x * SUPERSAMPLE + sx)) * 3;
+          r += big[i];
+          g += big[i + 1];
+          b += big[i + 2];
+        }
+      }
+      const o = (y * size + x) * 3;
+      out[o] = Math.round(r / n);
+      out[o + 1] = Math.round(g / n);
+      out[o + 2] = Math.round(b / n);
+    }
+  }
+  return out;
 }
 
 mkdirSync(OUT_DIR, { recursive: true });
