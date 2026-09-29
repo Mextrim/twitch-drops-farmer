@@ -1,0 +1,35 @@
+{
+  "name": "twitch-drops-farmer",
+  "version": "1.0.0",
+  "description": "Расширение Chrome/Edge для автофарма Twitch Drops: находит онлайн-каналы с включёнными дропами по играм и переключает между ними по таймеру.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "author": "Mextrim",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mextrim/twitch-drops-farmer.git"
+  },
+  "homepage": "https://github.com/Mextrim/twitch-drops-farmer#readme",
+  "bugs": {
+    "url": "https://github.com/Mextrim/twitch-drops-farmer/issues"
+  },
+  "keywords": [
+    "twitch",
+    "drops",
+    "chrome-extension",
+    "manifest-v3",
+    "browser-extension"
+  ],
+  "scripts": {
+    "check": "node tools/check.mjs",
+    "test": "node tools/selftest.mjs",
+    "build": "node tools/build.mjs",
+    "icons": "node tools/make-icons.mjs",
+    "serve": "node tools/serve.mjs",
+    "autostart": "powershell -ExecutionPolicy Bypass -File tools/setup-autostart.ps1"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

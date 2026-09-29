@@ -1,0 +1,469 @@
+:root {
+  --bg: #0b0b0f;
+  --surface: #141419;
+  --surface-2: #1c1c23;
+  --surface-3: #26262f;
+  --border: #2a2a33;
+  --border-soft: #202028;
+  --text: #efeff1;
+  --muted: #8f8f9e;
+  --muted-dim: #6a6a78;
+  --accent: #9147ff;
+  --accent-hi: #a970ff;
+  --accent-lo: #772ce8;
+  --ok: #00c389;
+  --warn: #f0b232;
+  --bad: #e5484d;
+  --radius: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  width: 372px;
+  font: 13px/1.5 "Inter", "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(120% 80% at 50% -10%, rgba(145, 71, 255, 0.16), transparent 60%),
+    linear-gradient(180deg, #101016 0%, var(--bg) 46%);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Мягкое свечение сверху — « Twitch-фирменный» градиент */
+.glow {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.85;
+}
+
+/* ------------------------------------------------------------------ шапка */
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 15px 16px 13px;
+}
+
+.head__brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+}
+
+.logo {
+  position: relative;
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(140deg, var(--accent-hi), var(--accent-lo));
+  box-shadow:
+    0 2px 10px rgba(145, 71, 255, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.logo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 0;
+  height: 0;
+  border-left: 10px solid #fff;
+  border-top: 6.5px solid transparent;
+  border-bottom: 6.5px solid transparent;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
+}
+
+h1 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.head__status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 3px 0 0;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.dot {
+  flex: 0 0 6px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--muted-dim);
+}
+
+.head__status.is-on {
+  color: var(--ok);
+}
+.head__status.is-on .dot {
+  background: var(--ok);
+  box-shadow: 0 0 0 0 rgba(0, 195, 137, 0.55);
+  animation: pulse 2.2s ease-out infinite;
+}
+.head__status.is-error {
+  color: var(--bad);
+}
+.head__status.is-error .dot {
+  background: var(--bad);
+}
+
+@keyframes pulse {
+  70% {
+    box-shadow: 0 0 0 6px rgba(0, 195, 137, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 195, 137, 0);
+  }
+}
+
+/* ----------------------------------------------------------------- кнопки */
+
+.btn {
+  border: 0;
+  border-radius: 7px;
+  padding: 8px 13px;
+  font: inherit;
+  font-weight: 600;
+  font-size: 12.5px;
+  color: var(--text);
+  background: var(--surface-2);
+  cursor: pointer;
+  transition:
+    background 0.16s ease,
+    transform 0.1s ease,
+    box-shadow 0.16s ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--primary {
+  background: linear-gradient(180deg, var(--accent-hi), var(--accent-lo));
+  box-shadow: 0 2px 10px rgba(145, 71, 255, 0.3);
+}
+.btn--primary:hover {
+  background: linear-gradient(180deg, #b47dff, #8533f0);
+}
+
+.btn--stop {
+  background: rgba(229, 72, 77, 0.14);
+  color: #ff8b8f;
+  box-shadow: inset 0 0 0 1px rgba(229, 72, 77, 0.35);
+}
+.btn--stop:hover {
+  background: rgba(229, 72, 77, 0.22);
+}
+
+.btn--ghost {
+  flex: 1;
+  padding: 8px 6px;
+  font-size: 12px;
+  color: var(--muted);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+.btn--ghost:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* ---------------------------------------------------------------- счётчики */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0 16px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.015);
+  overflow: hidden;
+}
+
+.stat {
+  padding: 9px 6px 10px;
+  text-align: center;
+}
+
+.stat + .stat {
+  border-left: 1px solid var(--border-soft);
+}
+
+.stat__value {
+  display: block;
+  font-size: 15px;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.stat__label {
+  font-size: 10px;
+  color: var(--muted-dim);
+  letter-spacing: 0.02em;
+}
+
+/* ------------------------------------------------------------------ слоты */
+
+.slots {
+  padding: 12px 16px 4px;
+}
+
+.slots__list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.slot {
+  position: relative;
+  padding: 10px 11px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.022), transparent);
+  transition: border-color 0.16s ease;
+}
+
+.slot:hover {
+  border-color: var(--border);
+}
+
+.slot__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.slot__name {
+  font-weight: 600;
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.slot__meta {
+  margin-top: 3px;
+  font-size: 11px;
+  color: var(--muted-dim);
+  font-variant-numeric: tabular-nums;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.slot__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.slot__skip {
+  padding: 4px 9px;
+  font-size: 11px;
+  border-radius: 6px;
+  color: var(--muted);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--border);
+  border: 0;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    color 0.16s ease,
+    background 0.16s ease;
+}
+.slot__skip:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+/* Мини-полоса «сколько отработано на этом канале» */
+.bar {
+  flex: 1;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--surface-3);
+  overflow: hidden;
+}
+.bar__fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent-lo), var(--accent-hi));
+  transition: width 0.6s ease;
+}
+
+.badge {
+  flex: 0 0 auto;
+  padding: 2.5px 8px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--muted);
+  background: var(--surface-2);
+}
+.badge--ok {
+  color: var(--ok);
+  background: rgba(0, 195, 137, 0.13);
+}
+.badge--warn {
+  color: var(--warn);
+  background: rgba(240, 178, 50, 0.13);
+}
+.badge--bad {
+  color: var(--bad);
+  background: rgba(229, 72, 77, 0.14);
+}
+
+.empty {
+  margin: 0;
+  padding: 18px 0;
+  text-align: center;
+  color: var(--muted-dim);
+  font-size: 12px;
+}
+
+/* --------------------------------------------------------------- переключатели */
+
+.toggles {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 16px 12px;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 5px 2px;
+  font-size: 12.5px;
+  color: var(--muted);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: color 0.16s ease;
+}
+.toggle:hover {
+  color: var(--text);
+}
+
+.toggle input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle__track {
+  position: relative;
+  flex: 0 0 28px;
+  width: 28px;
+  height: 16px;
+  border-radius: 999px;
+  background: var(--surface-3);
+  box-shadow: inset 0 0 0 1px var(--border);
+  transition: background 0.18s ease;
+}
+
+.toggle__track::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--muted);
+  transition:
+    transform 0.18s cubic-bezier(0.3, 1.4, 0.5, 1),
+    background 0.18s ease;
+}
+
+.toggle input:checked + .toggle__track {
+  background: var(--accent-lo);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+.toggle input:checked + .toggle__track::after {
+  transform: translateX(12px);
+  background: #fff;
+}
+.toggle input:focus-visible + .toggle__track {
+  outline: 2px solid var(--accent-hi);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------------ журнал */
+
+.log {
+  max-height: 124px;
+  overflow-y: auto;
+  padding: 0 16px 10px;
+  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--muted-dim);
+  scrollbar-width: thin;
+  scrollbar-color: var(--surface-3) transparent;
+}
+
+.log:empty {
+  display: none;
+}
+
+.log__line {
+  display: flex;
+  gap: 7px;
+  padding: 1.5px 0 1.5px 8px;
+  border-left: 2px solid var(--border);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.log__time {
+  flex: 0 0 auto;
+  opacity: 0.55;
+}
+.log__line--success {
+  color: var(--ok);
+  border-left-color: var(--ok);
+}
+.log__line--warn {
+  color: var(--warn);
+  border-left-color: var(--warn);
+}
+.log__line--error {
+  color: var(--bad);
+  border-left-color: var(--bad);
+}
+
+/* -------------------------------------------------------------------- подвал */
+
+.foot {
+  display: flex;
+  gap: 6px;
+  padding: 11px 16px 14px;
+  border-top: 1px solid var(--border-soft);
+  background: rgba(0, 0, 0, 0.22);
+}

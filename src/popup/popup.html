@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Twitch Drops Farmer</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="glow" aria-hidden="true"></div>
+
+    <header class="head">
+      <div class="head__brand">
+        <span class="logo" aria-hidden="true"></span>
+        <div class="head__text">
+          <h1>Twitch Drops Farmer</h1>
+          <p id="status" class="head__status">
+            <span class="dot" aria-hidden="true"></span>
+            <span id="statusText">Загрузка…</span>
+          </p>
+        </div>
+      </div>
+      <button id="toggle" class="btn btn--primary" type="button">Запустить</button>
+    </header>
+
+    <section class="stats" aria-label="Сводка">
+      <div class="stat">
+        <span class="stat__value" id="statSlots">—</span>
+        <span class="stat__label">в пуле</span>
+      </div>
+      <div class="stat">
+        <span class="stat__value" id="statSwitches">—</span>
+        <span class="stat__label">переключений</span>
+      </div>
+      <div class="stat">
+        <span class="stat__value" id="statNext">—</span>
+        <span class="stat__label">до смены</span>
+      </div>
+    </section>
+
+    <section class="slots" aria-label="Активные каналы">
+      <div id="slots" class="slots__list">
+        <p class="empty">Фарм не запущен</p>
+      </div>
+    </section>
+
+    <section class="toggles" aria-label="Быстрые настройки">
+      <label class="toggle">
+        <input type="checkbox" id="optMute" />
+        <span class="toggle__track" aria-hidden="true"></span>
+        <span class="toggle__label">Без звука</span>
+      </label>
+      <label class="toggle">
+        <input type="checkbox" id="optNotify" />
+        <span class="toggle__track" aria-hidden="true"></span>
+        <span class="toggle__label">Уведомлять о дропах</span>
+      </label>
+      <label class="toggle">
+        <input type="checkbox" id="optLowQuality" />
+        <span class="toggle__track" aria-hidden="true"></span>
+        <span class="toggle__label">Качество 160p</span>
+      </label>
+    </section>
+
+    <section id="log" class="log" aria-label="Журнал"></section>
+
+    <footer class="foot">
+      <button id="refresh" class="btn btn--ghost" type="button" title="Переспросить список каналов у Twitch">
+        Обновить пул
+      </button>
+      <button id="inventory" class="btn btn--ghost" type="button" title="Открыть инвентарь дропов Twitch">
+        Дропы
+      </button>
+      <button id="options" class="btn btn--ghost" type="button" title="Открыть настройки расширения">
+        Настройки
+      </button>
+    </footer>
+
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

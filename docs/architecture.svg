@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="620" viewBox="0 0 920 620" font-family="Inter, 'Segoe UI', system-ui, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#12121a"/>
+      <stop offset="1" stop-color="#0b0b0f"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a970ff"/>
+      <stop offset="1" stop-color="#772ce8"/>
+    </linearGradient>
+    <linearGradient id="title" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#9147ff"/>
+      <stop offset="1" stop-color="#00c389"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#4a4a58"/>
+    </marker>
+  </defs>
+
+  <rect width="920" height="620" rx="16" fill="url(#bg)"/>
+  <rect x="0.5" y="0.5" width="919" height="619" rx="16" fill="none" stroke="#2a2a33"/>
+  <rect x="40" y="0" width="840" height="2" fill="url(#title)" opacity="0.8"/>
+
+  <text x="46" y="52" fill="#efeff1" font-size="21" font-weight="600">Как работает фарм</text>
+  <text x="46" y="74" fill="#8f8f9e" font-size="13">Ничего не подделывается — вкладки настоящие, прогресс считает Twitch</text>
+
+  <!-- этап 1 -->
+  <rect x="46" y="104" width="196" height="118" rx="12" fill="#17171e" stroke="#2a2a33"/>
+  <rect x="46" y="104" width="196" height="3" rx="1.5" fill="url(#accent)"/>
+  <text x="66" y="134" fill="#6a6a78" font-size="10.5" font-weight="600" letter-spacing="0.6">ШАГ 1</text>
+  <text x="66" y="158" fill="#efeff1" font-size="14" font-weight="600">Выбор игр</text>
+  <text x="66" y="180" fill="#8f8f9e" font-size="12">game(name: "VALORANT")</text>
+  <text x="66" y="198" fill="#8f8f9e" font-size="12">→ id игры</text>
+
+  <line x1="250" y1="163" x2="292" y2="163" stroke="#4a4a58" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- этап 2 -->
+  <rect x="300" y="104" width="230" height="118" rx="12" fill="#17171e" stroke="#2a2a33"/>
+  <rect x="300" y="104" width="230" height="3" rx="1.5" fill="url(#accent)"/>
+  <text x="320" y="134" fill="#6a6a78" font-size="10.5" font-weight="600" letter-spacing="0.6">ШАГ 2 · ПОИСК</text>
+  <text x="320" y="158" fill="#efeff1" font-size="14" font-weight="600">Только каналы с дропами</text>
+  <text x="320" y="180" fill="#c39bff" font-size="11.5" font-family="ui-monospace, monospace">freeformTags:</text>
+  <text x="320" y="196" fill="#c39bff" font-size="11.5" font-family="ui-monospace, monospace">["DropsEnabled"]</text>
+  <text x="320" y="214" fill="#6a6a78" font-size="11" font-family="ui-monospace, monospace">фильтр на стороне Twitch</text>
+
+  <line x1="538" y1="163" x2="580" y2="163" stroke="#4a4a58" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- этап 3 -->
+  <rect x="588" y="104" width="196" height="118" rx="12" fill="#17171e" stroke="#2a2a33"/>
+  <rect x="588" y="104" width="196" height="3" rx="1.5" fill="url(#accent)"/>
+  <text x="608" y="134" fill="#6a6a78" font-size="10.5" font-weight="600" letter-spacing="0.6">ШАГ 3</text>
+  <text x="608" y="158" fill="#efeff1" font-size="14" font-weight="600">Пул каналов</text>
+  <text x="608" y="180" fill="#8f8f9e" font-size="12">давно не брали +</text>
+  <text x="608" y="198" fill="#8f8f9e" font-size="12">больше зрителей</text>
+
+  <path d="M 686 222 L 686 254 L 300 254 L 300 286" fill="none" stroke="#4a4a58" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ротация -->
+  <rect x="46" y="292" width="738" height="92" rx="12" fill="#17171e" stroke="#2a2a33"/>
+  <text x="66" y="320" fill="#6a6a78" font-size="10.5" font-weight="600" letter-spacing="0.6">ШАГ 4 · РОТАЦИЯ</text>
+
+  <rect x="66" y="332" width="200" height="38" rx="9" fill="#1c1c23" stroke="#2a2a33"/>
+  <text x="80" y="356" fill="#efeff1" font-size="12.5" font-weight="600">N вкладок в фоне</text>
+
+  <path d="M 276 351 L 306 351" stroke="#4a4a58" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="314" y="332" width="200" height="38" rx="9" fill="#1c1c23" stroke="#2a2a33"/>
+  <text x="328" y="356" fill="#efeff1" font-size="12.5" font-weight="600">смена каждые N минут</text>
+
+  <path d="M 524 351 L 554 351" stroke="#4a4a58" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="562" y="332" width="204" height="38" rx="9" fill="#1c1c23" stroke="#2a2a33"/>
+  <text x="576" y="356" fill="#efeff1" font-size="12.5" font-weight="600">проверка онлайна</text>
+
+  <path d="M 415 384 L 415 412" stroke="#4a4a58" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- слой service worker -->
+  <rect x="46" y="418" width="360" height="140" rx="12" fill="#12121a" stroke="#2a2a33"/>
+  <text x="66" y="446" fill="#c39bff" font-size="12.5" font-weight="600">service worker (MV3)</text>
+  <text x="66" y="472" fill="#8f8f9e" font-size="12">• очередь и ротация каналов</text>
+  <text x="66" y="492" fill="#8f8f9e" font-size="12">• проверка онлайна батчем (20 за раз)</text>
+  <text x="66" y="512" fill="#8f8f9e" font-size="12">• состояние в chrome.storage</text>
+  <text x="66" y="532" fill="#8f8f9e" font-size="12">• расписание на chrome.alarms</text>
+
+  <!-- слой content script -->
+  <rect x="424" y="418" width="360" height="140" rx="12" fill="#12121a" stroke="#2a2a33"/>
+  <text x="444" y="446" fill="#5fd6a9" font-size="12.5" font-weight="600">content script</text>
+  <text x="444" y="472" fill="#8f8f9e" font-size="12">• качество 160p и mute</text>
+  <text x="444" y="492" fill="#8f8f9e" font-size="12">• подтверждение тега DropsEnabled</text>
+  <text x="444" y="512" fill="#8f8f9e" font-size="12">• отловка «дроп получен»</text>
+  <text x="444" y="532" fill="#8f8f9e" font-size="12">• heartbeat раз в 10 секунд</text>
+
+  <!-- футер -->
+  <text x="46" y="590" fill="#6a6a78" font-size="11.5">Client-ID — публичный идентификатор веб-клиента Twitch. Токен аккаунта не нужен и не запрашивается.</text>
+</svg>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <title>UI preview</title>
+    <style>
+      body { margin: 0; background: #0e0e10; color: #efeff1; font-family: "Inter", "Segoe UI", system-ui, sans-serif; }
+      .frame { border: 0; display: block; }
+    </style>
+  </head>
+  <body>
+    <script src="./mock-chrome.js"></script>
+    <div id="host"></div>
+    <script type="module">
+      const page = new URLSearchParams(location.search).get('page') || 'popup';
+      const res = await fetch(`/src/${page}/${page}.html`);
+      const html = await res.text();
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      document.title = doc.title;
+
+      for (const link of doc.querySelectorAll('link[rel="stylesheet"]')) {
+        document.head.appendChild(Object.assign(document.createElement('link'), {
+          rel: 'stylesheet',
+          href: `/src/${page}/${link.getAttribute('href')}`,
+        }));
+      }
+      for (const style of doc.querySelectorAll('style')) document.head.appendChild(style);
+
+      const host = document.getElementById('host');
+      host.innerHTML = doc.body.innerHTML;
+      host.className = page;
+
+      await import(`/src/${page}/${page}.js`);
+    </script>
+  </body>
+</html>

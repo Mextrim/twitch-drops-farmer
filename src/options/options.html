@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Twitch Drops Farmer — настройки</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <header class="page-head">
+      <div class="brand">
+        <span class="brand__logo" aria-hidden="true"></span>
+        <div>
+          <h1>Twitch Drops Farmer</h1>
+          <span class="tagline">автофарм Twitch Drops в браузере</span>
+        </div>
+      </div>
+      <button id="toggle" class="btn btn--primary" type="button">Запустить</button>
+    </header>
+
+    <main>
+      <p class="page-head__sub">
+        Расширение находит онлайн-каналы с включёнными дропами по выбранным играм
+        и держит их открытыми, переключаясь по таймеру. Ничего не подделывается —
+        каналы реально открыты в браузере, прогресс считает сам Twitch.
+      </p>
+
+      <!-- Игры -->
+      <section class="card">
+        <div class="card__head">
+          <h2>Игры</h2>
+          <span class="hint">По этим играм ищутся каналы с дропами</span>
+        </div>
+
+        <div class="row">
+          <input id="gameInput" type="text" placeholder="Название игры или ID — например VALORANT" />
+          <button id="addGame" class="btn" type="button">Найти и добавить</button>
+        </div>
+        <p id="gameHint" class="hint hint--inline"></p>
+
+        <div id="gameList" class="chips"></div>
+
+        <div class="row row--wrap">
+          <div class="field field--inline">
+            <label for="topGames">Популярные игры:</label>
+            <select id="topGames">
+              <option value="">— выбрать —</option>
+            </select>
+          </div>
+          <button id="loadTop" class="btn btn--ghost" type="button">Загрузить список</button>
+        </div>
+      </section>
+
+      <!-- Ротация -->
+      <section class="card">
+        <div class="card__head">
+          <h2>Ротация</h2>
+          <span class="hint">как расширение делит время между каналами</span>
+        </div>
+        <div class="grid">
+          <div class="field">
+            <label for="slots">Одновременных каналов</label>
+            <input id="slots" type="number" min="1" max="4" step="1" />
+            <span class="hint">Столько вкладок будет открыто и ротироваться по очереди</span>
+          </div>
+          <div class="field">
+            <label for="rotateMinutes">Минут на канал</label>
+            <input id="rotateMinutes" type="number" min="1" max="240" step="1" />
+            <span class="hint">Сколько смотреть перед переключением</span>
+          </div>
+          <div class="field">
+            <label for="refreshMinutes">Обновлять пул, мин</label>
+            <input id="refreshMinutes" type="number" min="5" max="240" step="1" />
+            <span class="hint">Как часто переспрашивать Twitch за каналами</span>
+          </div>
+          <div class="field">
+            <label for="minViewers">Минимум зрителей</label>
+            <input id="minViewers" type="number" min="0" step="1" />
+            <span class="hint">Отсекает каналы с пустым онлайном</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Поведение -->
+      <section class="card">
+        <div class="card__head">
+          <h2>Поведение</h2>
+          <span class="hint">как расширение себя ведёт на странице канала</span>
+        </div>
+
+        <div class="checks">
+          <label class="check">
+            <input type="checkbox" id="autoDiscover" />
+            <span class="check__track" aria-hidden="true"></span>
+            <span>Автоматически искать новые каналы</span>
+          </label>
+          <label class="check">
+            <input type="checkbox" id="mute" />
+            <span class="check__track" aria-hidden="true"></span>
+            <span>Отключать звук на фарм-вкладках</span>
+          </label>
+          <label class="check">
+            <input type="checkbox" id="lowQuality" />
+            <span class="check__track" aria-hidden="true"></span>
+            <span>Качество 160p — экономит трафик</span>
+          </label>
+          <label class="check">
+            <input type="checkbox" id="restoreQualityOnStop" />
+            <span class="check__track" aria-hidden="true"></span>
+            <span>Восстанавливать качество после остановки</span>
+          </label>
+          <label class="check">
+            <input type="checkbox" id="skipIfNoDrops" />
+            <span class="check__track" aria-hidden="true"></span>
+            <span>Сразу пропускать каналы без тега DropsEnabled</span>
+          </label>
+          <label class="check">
+            <input type="checkbox" id="notifyOnDrop" />
+            <span class="check__track" aria-hidden="true"></span>
+            <span>Уведомлять о полученных дропах</span>
+          </label>
+          <label class="check">
+            <input type="checkbox" id="resumeOnStartup" />
+            <span class="check__track" aria-hidden="true"></span>
+            <span>Продолжать фарм после перезапуска браузера</span>
+          </label>
+        </div>
+
+        <div class="row">
+          <div class="field field--grow">
+            <label for="blacklist">Стоп-слова в названии канала (через запятую)</label>
+            <input id="blacklist" type="text" placeholder="например: russian, политика, 18+" />
+          </div>
+        </div>
+      </section>
+
+      <!-- Пул -->
+      <section class="card">
+        <div class="card__head">
+          <h2>Пул каналов</h2>
+          <span class="hint" id="poolMeta">—</span>
+        </div>
+        <div class="row">
+          <button id="refreshPool" class="btn" type="button">Обновить пул</button>
+          <button id="exportPool" class="btn btn--ghost" type="button">Экспорт JSON</button>
+        </div>
+        <div id="poolList" class="table-wrap"></div>
+      </section>
+
+      <!-- Журнал -->
+      <section class="card">
+        <div class="card__head">
+          <h2>Журнал</h2>
+          <button id="clearLog" class="btn btn--ghost btn--small" type="button">Очистить</button>
+        </div>
+        <div id="log" class="table-wrap log"></div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" hidden></div>
+    <script type="module" src="options.js"></script>
+  </body>
+</html>

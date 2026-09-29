@@ -1,0 +1,14 @@
+# Сборка — генерируется заново
+dist/
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Windows / редакторы
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/
+*.swp

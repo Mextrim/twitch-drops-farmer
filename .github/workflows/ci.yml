@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Проверки и сборка
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Проверки (манифест, import-пути, синтаксис)
+        run: npm run check
+
+      - name: Сборка дистрибутива
+        run: npm run build
+
+      - name: Целостность архива
+        run: |
+          ls -l dist/
+          unzip -t dist/twitch-drops-farmer-*.zip
