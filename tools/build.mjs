@@ -15,7 +15,7 @@ import { fileURLToPath } from 'node:url';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
 const PKG_NAME = 'twitch-drops-farmer';
-const INCLUDE = ['manifest.json', 'src', 'icons', 'README.md', 'INSTALL.md'];
+const INCLUDE = ['manifest.json', 'src', 'icons', 'assets', 'README.md', 'INSTALL.md'];
 
 // ------------------------------------------------------------- zip writer
 

@@ -45,6 +45,7 @@ const refs = [
   manifest.background?.service_worker,
   manifest.action?.default_popup,
   manifest.options_ui?.page,
+  'assets/logo.svg',
   ...(manifest.content_scripts || []).flatMap((cs) => cs.js || []),
 ].filter(Boolean);
 
@@ -109,6 +110,8 @@ for (const file of files) {
 
 console.log('\nСоглашения');
 const contentScript = await readFile(join(SRC, 'content', 'farm-tab.js'), 'utf8');
+const popupCss = await readFile(join(SRC, 'popup', 'popup.css'), 'utf8');
+const optionsCss = await readFile(join(SRC, 'options', 'options.css'), 'utf8');
 /^import\s/m.test(contentScript)
   ? fail('content script использует import — он не поддерживается')
   : ok('content script без import (MV3 content_scripts не поддерживают модули)');
@@ -122,6 +125,33 @@ const api = await readFile(join(ROOT, 'src', 'background', 'twitch-api.js'), 'ut
 api.includes('["${DROP_TAG}"]') || api.includes('freeformTags: ["')
   ? ok('фильтр freeformTags передан литералом')
   : fail('фильтр freeformTags должен быть литералом — через variables Twitch его игнорирует');
+
+// Логотип обязан быть один: интерфейс берёт assets/logo.svg,
+// а PNG-иконки собираются из той же геометрии в make-icons.mjs.
+console.log('\nБрендинг');
+const iconSource = await readFile(join(TOOLS, 'make-icons.mjs'), 'utf8');
+for (const page of ['popup', 'options']) {
+  const file = join(SRC, page, `${page}.html`);
+  const html = await readFile(file, 'utf8');
+  const match = html.match(/<img[^>]+class="[^"]*logo[^"]*"[^>]+src="([^"]+)"/);
+  if (!match) {
+    fail(`${page}.html: не найден <img> с логотипом`);
+    continue;
+  }
+  // Резолвим относительно самой страницы: логотип лежит в корне проекта,
+  // а страницы — в src/<page>/, поэтому путь вверх на два уровня
+  const target = resolve(dirname(file), match[1]);
+  try {
+    await stat(target);
+    ok(`${page}.html → ${match[1]} (файл найден)`);
+  } catch {
+    fail(`${page}.html → ${match[1]} — файл не найден по этому пути`);
+  }
+}
+iconSource.includes('logo.svg') ? ok('make-icons.mjs собирает assets/logo.svg') : fail('make-icons.mjs должен собирать assets/logo.svg');
+!popupCss.includes('.logo::after') && !optionsCss.includes('__logo::after')
+  ? ok('старая стрелка на CSS удалена')
+  : fail('в CSS остался псевдоэлемент со старой стрелкой');
 
 console.log(failed ? `\nПровалено проверок: ${failed}\n` : '\nВсе проверки пройдены\n');
 process.exit(failed ? 1 : 0);

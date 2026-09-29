@@ -54,9 +54,19 @@
 
   <!-- логотип -->
   <g transform="translate(64,96)">
+    <defs>
+      <!-- Тот же градиент, что у плитки, но в координатах пользователя:
+           иначе вырез подстроится под треугольник и шов станет виден -->
+      <linearGradient id="logoHole" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="128">
+        <stop offset="0" stop-color="#a970ff"/>
+        <stop offset="1" stop-color="#6f26d8"/>
+      </linearGradient>
+      <clipPath id="logoDrop"><path d="M 64 7.36 L 96.1 66.83 A 36.48 36.48 0 1 1 31.9 66.83 Z"/></clipPath>
+    </defs>
     <rect width="128" height="128" rx="36" fill="url(#logoBg)"/>
     <rect x="0.75" y="0.75" width="126.5" height="126.5" rx="35.25" fill="none" stroke="#ffffff" stroke-opacity="0.22" stroke-width="1.5"/>
-    <path d="M 50 36 L 94 64 L 50 92 Z" fill="#ffffff" transform="translate(4,0)"/>
+    <path d="M 64 7.36 L 96.1 66.83 A 36.48 36.48 0 1 1 31.9 66.83 Z" fill="#ffffff"/>
+    <path d="M 35.84 75.2 L 84.48 90.56 L 35.84 105.92 Z" fill="url(#logoHole)" clip-path="url(#logoDrop)"/>
   </g>
 
   <!-- заголовок -->

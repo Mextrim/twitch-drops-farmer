@@ -22,12 +22,13 @@
     "browser-extension"
   ],
   "scripts": {
-    "check": "node tools/check.mjs",
+    "check": "node tools/check.mjs && node tools/check-docs.mjs",
     "test": "node tools/selftest.mjs",
     "build": "node tools/build.mjs",
     "icons": "node tools/make-icons.mjs",
     "serve": "node tools/serve.mjs",
-    "autostart": "powershell -ExecutionPolicy Bypass -File tools/setup-autostart.ps1"
+    "autostart": "powershell -ExecutionPolicy Bypass -File tools/setup-autostart.ps1",
+    "docs": "node tools/check-docs.mjs"
   },
   "engines": {
     "node": ">=18"

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Twitch Drops Farmer">
+  <defs>
+    <!-- userSpaceOnUse обязателен: при objectBoundingBox градиент внутри
+         выреза пересчитался бы по габаритам треугольника и дырка
+         перестала бы совпадать с плиткой -->
+    <linearGradient id="tile" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="512">
+      <stop offset="0" stop-color="rgb(169,112,255)"/>
+      <stop offset="1" stop-color="rgb(100,33,204)"/>
+    </linearGradient>
+    <clipPath id="drop"><path d="M 256 29.44 L 384.41 267.33 A 145.92 145.92 0 1 1 127.59 267.33 Z"/></clipPath>
+  </defs>
+
+  <rect width="512" height="512" rx="112.64" fill="rgb(14,14,19)"/>
+  <rect width="512" height="512" rx="112.64" fill="url(#tile)"/>
+  <path d="M 256 29.44 L 384.41 267.33 A 145.92 145.92 0 1 1 127.59 267.33 Z" fill="#ffffff"/>
+  <path d="M 143.36 300.8 L 337.92 362.24 L 143.36 423.68 Z" fill="url(#tile)" clip-path="url(#drop)"/>
+</svg>

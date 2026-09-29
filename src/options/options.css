@@ -59,28 +59,15 @@ body {
   gap: 14px;
 }
 
+/* Логотип берётся из assets/logo.svg — того же файла, из которого
+   собираются иконки, поэтому расхождение невозможно по построению. */
 .brand__logo {
-  position: relative;
   flex: 0 0 44px;
   width: 44px;
   height: 44px;
-  border-radius: 13px;
-  background: linear-gradient(140deg, var(--accent-hi), var(--accent-lo));
-  box-shadow:
-    0 4px 18px rgba(145, 71, 255, 0.32),
-    inset 0 1px 0 rgba(255, 255, 255, 0.24);
-}
-.brand__logo::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  margin: auto;
-  width: 0;
-  height: 0;
-  border-left: 13px solid #fff;
-  border-top: 8.5px solid transparent;
-  border-bottom: 8.5px solid transparent;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
+  border-radius: 12px;
+  display: block;
+  box-shadow: 0 4px 20px rgba(145, 71, 255, 0.36);
 }
 
 h1 {

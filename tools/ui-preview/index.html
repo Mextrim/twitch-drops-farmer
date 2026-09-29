@@ -26,6 +26,16 @@
       }
       for (const style of doc.querySelectorAll('style')) document.head.appendChild(style);
 
+      // Предпросмотр живёт в tools/ui-preview/, а страницы — в src/<page>/,
+      // поэтому относительные пути вида ../../assets/… надо переписать в абсолютные,
+      // иначе логотип не найдётся. В самом расширении путь остаётся как есть.
+      for (const img of doc.querySelectorAll('img[src]')) {
+        const src = img.getAttribute('src');
+        if (/^(https?:|data:|\/)/.test(src)) continue;
+        const base = new URL(`/src/${page}/`, location.href);
+        img.src = new URL(src, base).pathname;
+      }
+
       const host = document.getElementById('host');
       host.innerHTML = doc.body.innerHTML;
       host.className = page;
